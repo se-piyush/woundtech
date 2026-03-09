@@ -7,8 +7,6 @@ import PatientList from './components/PatientList';
 import CreateVisitForm from './components/CreateVisitForm';
 import VisitsTable from './components/VisitsTable';
 
-type TabType = 'clinicians' | 'patients' | 'visits';
-
 function App() {
   const { isAuthenticated, isLoading, logout, user } = useAuth();
   const [activeTab, setActiveTab] = useState<TabType>('clinicians');

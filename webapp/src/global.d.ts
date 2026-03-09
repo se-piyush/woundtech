@@ -1,5 +1,8 @@
+// Global Type Declarations
+// These types are available throughout the application without imports
+
 // API Types
-export interface Clinician {
+interface Clinician {
   id: string;
   firstName: string;
   lastName: string;
@@ -9,7 +12,7 @@ export interface Clinician {
   updatedAt: string;
 }
 
-export interface Patient {
+interface Patient {
   id: string;
   firstName: string;
   lastName: string;
@@ -20,7 +23,7 @@ export interface Patient {
   updatedAt: string;
 }
 
-export interface Visit {
+interface Visit {
   id: string;
   clinicianId: string;
   patientId: string;
@@ -34,7 +37,7 @@ export interface Visit {
   patient: Patient;
 }
 
-export interface CreateVisitInput {
+interface CreateVisitInput {
   clinicianId: string;
   patientId: string;
   visitDate: string;
@@ -43,7 +46,7 @@ export interface CreateVisitInput {
   treatment?: string;
 }
 
-export interface PaginatedVisits {
+interface PaginatedVisits {
   data: Visit[];
   total: number;
   page: number;
@@ -51,7 +54,7 @@ export interface PaginatedVisits {
   totalPages: number;
 }
 
-export interface PaginatedClinicians {
+interface PaginatedClinicians {
   data: Clinician[];
   total: number;
   page: number;
@@ -59,7 +62,7 @@ export interface PaginatedClinicians {
   totalPages: number;
 }
 
-export interface PaginatedPatients {
+interface PaginatedPatients {
   data: Patient[];
   total: number;
   page: number;
@@ -68,18 +71,59 @@ export interface PaginatedPatients {
 }
 
 // Authentication Types
-export interface LoginCredentials {
+interface LoginCredentials {
   email: string;
   password: string;
 }
 
-export interface User {
+interface User {
   id: string;
   email: string;
   role: "CLINICIAN" | "PATIENT" | "SUPER";
 }
 
-export interface AuthResponse {
+interface AuthResponse {
   token: string;
   user: User;
 }
+
+// Context Types
+interface AuthContextType {
+  user: User | null;
+  isAuthenticated: boolean;
+  isLoading: boolean;
+  login: (credentials: LoginCredentials) => Promise<void>;
+  logout: () => void;
+}
+
+interface AuthProviderProps {
+  children: React.ReactNode;
+}
+
+// Component Props Types
+interface ComboboxOption {
+  value: string;
+  label: string;
+}
+
+interface ComboboxProps {
+  id?: string;
+  label: string;
+  options: ComboboxOption[];
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+  required?: boolean;
+  disabled?: boolean;
+}
+
+interface CreateVisitFormProps {
+  onSuccess: () => void;
+}
+
+interface VisitsTableProps {
+  refreshTrigger?: number;
+}
+
+// App Types
+type TabType = "clinicians" | "patients" | "visits";

@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { getClinicians } from '../api';
-import type { Clinician } from '../types';
 
 export default function ClinicianList() {
   const [clinicians, setClinicians] = useState<Clinician[]>([]);

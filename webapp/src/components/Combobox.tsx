@@ -1,22 +1,6 @@
 import { useState, useRef, useEffect, useId } from 'react';
 import '../styles/Combobox.css';
 
-interface ComboboxOption {
-  value: string;
-  label: string;
-}
-
-interface ComboboxProps {
-  id?: string;
-  label: string;
-  options: ComboboxOption[];
-  value: string;
-  onChange: (value: string) => void;
-  placeholder?: string;
-  required?: boolean;
-  disabled?: boolean;
-}
-
 export default function Combobox({
   id: providedId,
   label,

@@ -1,13 +1,4 @@
 import axios from "axios";
-import type {
-  Visit,
-  CreateVisitInput,
-  PaginatedVisits,
-  PaginatedClinicians,
-  PaginatedPatients,
-  LoginCredentials,
-  AuthResponse,
-} from "./types";
 
 const api = axios.create({
   baseURL: "/api/v1",

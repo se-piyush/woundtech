@@ -1,11 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getClinicians, getPatients, createVisit } from '../api';
-import type { Clinician, Patient, CreateVisitInput } from '../types';
 import Combobox from './Combobox';
-
-interface CreateVisitFormProps {
-  onSuccess: () => void;
-}
 
 export default function CreateVisitForm({ onSuccess }: CreateVisitFormProps) {
   const [clinicians, setClinicians] = useState<Clinician[]>([]);

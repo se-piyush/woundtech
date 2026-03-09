@@ -1,11 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getClinicians, getPatients, getVisits } from '../api';
-import type { Clinician, Patient, Visit } from '../types';
 import Combobox from './Combobox';
-
-interface VisitsTableProps {
-  refreshTrigger?: number;
-}
 
 export default function VisitsTable({ refreshTrigger }: VisitsTableProps) {
   const [visits, setVisits] = useState<Visit[]>([]);
