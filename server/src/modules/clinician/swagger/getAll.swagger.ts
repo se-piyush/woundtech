@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /api/clinicians:
+ * /api/v1/clinicians:
  *   get:
  *     tags: [Clinicians]
  *     summary: Get all clinicians

@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /api/patients:
+ * /api/v1/patients:
  *   get:
  *     tags: [Patients]
  *     summary: Get all patients

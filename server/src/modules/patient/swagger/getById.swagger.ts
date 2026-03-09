@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /api/patients/{id}:
+ * /api/v1/patients/{id}:
  *   get:
  *     tags: [Patients]
  *     summary: Get patient by ID

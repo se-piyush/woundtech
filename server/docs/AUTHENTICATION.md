@@ -52,9 +52,9 @@ The application uses a unified authentication system with a central `users` tabl
 
 ### Sign In
 
-**Endpoint:** `POST /api/auth/signin`
+**Endpoint:** `POST /api/v1/auth/signin`
 
-**Request Body:**
+**Request Body:\*\***
 
 ```json
 {
@@ -99,7 +99,7 @@ npm run prisma:seed
 ### 1. Sign In
 
 ```bash
-curl -X POST http://localhost:3000/api/auth/signin \
+curl -X POST http://localhost:3000/api/v1/auth/signin \
   -H "Content-Type: application/json" \
   -d '{
     "email": "super@woundtech.com",
@@ -112,7 +112,7 @@ curl -X POST http://localhost:3000/api/auth/signin \
 Add the token to the `Authorization` header:
 
 ```bash
-curl -X GET http://localhost:3000/api/clinicians \
+curl -X GET http://localhost:3000/api/v1/clinicians \
   -H "Authorization: Bearer YOUR_TOKEN_HERE"
 ```
 
@@ -289,7 +289,7 @@ Consider implementing:
 2. **Sign in as super user:**
 
    ```bash
-   curl -X POST http://localhost:3000/api/auth/signin \
+   curl -X POST http://localhost:3000/api/v1/auth/signin \
      -H "Content-Type: application/json" \
      -d '{"email":"super@woundtech.com","password":"SuperPassword123"}'
    ```
@@ -298,7 +298,7 @@ Consider implementing:
 
 4. **Use token in API calls:**
    ```bash
-   curl http://localhost:3000/api/clinicians \
+   curl http://localhost:3000/api/v1/clinicians \
      -H "Authorization: Bearer YOUR_TOKEN"
    ```
 

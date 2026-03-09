@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /api/visits:
+ * /api/v1/visits:
  *   get:
  *     tags: [Visits]
  *     summary: Get all visits with pagination, sorting, and filtering

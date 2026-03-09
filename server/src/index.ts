@@ -29,12 +29,6 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-// Request logging middleware
-app.use((req: Request, res: Response, next: NextFunction) => {
-  console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
-  next();
-});
-
 // Swagger API Documentation
 app.use(
   "/api-docs",
@@ -45,34 +39,8 @@ app.use(
   }),
 );
 
-// Swagger JSON endpoint
-app.get("/api-docs.json", (req: Request, res: Response) => {
-  res.setHeader("Content-Type", "application/json");
-  res.send(swaggerSpec);
-});
-
 // API routes
 app.use("/api", routes);
-
-// Health check endpoint
-app.get("/health", (req: Request, res: Response) => {
-  res.status(200).json({ status: "OK", timestamp: new Date().toISOString() });
-});
-
-// Root endpoint
-app.get("/", (req: Request, res: Response) => {
-  res.status(200).json({
-    message: "Patient Visit Tracker API",
-    version: "1.0.0",
-    documentation: "/api-docs",
-    endpoints: {
-      clinicians: "/api/clinicians",
-      patients: "/api/patients",
-      visits: "/api/visits",
-      health: "/health",
-    },
-  });
-});
 
 // 404 handler
 app.use((req: Request, res: Response) => {

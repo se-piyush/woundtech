@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /api/auth/signin:
+ * /api/v1/auth/signin:
  *   post:
  *     tags: [Authentication]
  *     summary: Sign in user

@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /api/clinicians/{id}:
+ * /api/v1/clinicians/{id}:
  *   get:
  *     tags: [Clinicians]
  *     summary: Get clinician by ID

@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /api/visits:
+ * /api/v1/visits:
  *   post:
  *     tags: [Visits]
  *     summary: Record a new visit

@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /api/visits/{id}:
+ * /api/v1/visits/{id}:
  *   get:
  *     tags: [Visits]
  *     summary: Get visit by ID

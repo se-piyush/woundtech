@@ -100,32 +100,34 @@ See [webapp/AUTHENTICATION.md](webapp/AUTHENTICATION.md) for detailed authentica
 
 ## API Endpoints
 
+All API endpoints are versioned. The current version is v1.
+
 ### Authentication
 
-- `POST /api/auth/signin` - User login
+- `POST /api/v1/auth/signin` - User login
 
 ### Clinicians
 
-- `GET /api/clinicians` - Get all clinicians (with pagination and search)
+- `GET /api/v1/clinicians` - Get all clinicians (with pagination and search)
   - Query params:
     - `page` (default: 1) - Page number
     - `limit` (default: 10) - Items per page
     - `search` - Search by name or specialty
-- `GET /api/clinicians/:id` - Get a specific clinician with visit history
+- `GET /api/v1/clinicians/:id` - Get a specific clinician with visit history
 
 ### Patients
 
-- `GET /api/patients` - Get all patients (with pagination and search)
+- `GET /api/v1/patients` - Get all patients (with pagination and search)
   - Query params:
     - `page` (default: 1) - Page number
     - `limit` (default: 10) - Items per page
     - `search` - Search by name, email, or phone
-- `GET /api/patients/:id` - Get a specific patient with visit history
+- `GET /api/v1/patients/:id` - Get a specific patient with visit history
 
 ### Visits
 
-- `POST /api/visits` - Create a new visit
-- `GET /api/visits` - List visits with pagination, sorting, and filtering
+- `POST /api/v1/visits` - Create a new visit
+- `GET /api/v1/visits` - List visits with pagination, sorting, and filtering
   - Query params:
     - `page` (default: 1) - Page number
     - `limit` (default: 10) - Items per page
@@ -133,7 +135,7 @@ See [webapp/AUTHENTICATION.md](webapp/AUTHENTICATION.md) for detailed authentica
     - `sortOrder` (default: desc) - Sort order (asc/desc)
     - `clinicianId` - Filter by clinician ID
     - `patientId` - Filter by patient ID
-- `GET /api/visits/:id` - Get a specific visit with clinician and patient details
+- `GET /api/v1/visits/:id` - Get a specific visit with clinician and patient details
 
 ## Database Schema
 

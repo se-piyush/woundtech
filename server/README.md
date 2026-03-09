@@ -58,27 +58,29 @@ Swagger documentation is available at `http://localhost:3000/api-docs`
 
 ## API Endpoints
 
+All API endpoints are versioned. The current version is v1.
+
 ### Authentication
 
-- `POST /api/auth/register` - Register a new user
-- `POST /api/auth/login` - Login
+- `POST /api/v1/auth/register` - Register a new user
+- `POST /api/v1/auth/login` - Login
 
 ### Clinicians
 
-- `GET /api/clinicians` - Get all clinicians
-- `GET /api/clinicians/:id` - Get clinician by ID
+- `GET /api/v1/clinicians` - Get all clinicians
+- `GET /api/v1/clinicians/:id` - Get clinician by ID
 
 ### Patients
 
-- `GET /api/patients` - Get all patients
-- `GET /api/patients/:id` - Get patient by ID
+- `GET /api/v1/patients` - Get all patients
+- `GET /api/v1/patients/:id` - Get patient by ID
 
 ### Visits
 
-- `GET /api/visits` - Get all visits (with pagination and filtering)
+- `GET /api/v1/visits` - Get all visits (with pagination and filtering)
   - Query params: `page`, `limit`, `clinicianId`, `patientId`, `sortBy`, `sortOrder`
-- `POST /api/visits` - Create a new visit
-- `GET /api/visits/:id` - Get visit by ID
+- `POST /api/v1/visits` - Create a new visit
+- `GET /api/v1/visits/:id` - Get visit by ID
 
 ## Scripts
 

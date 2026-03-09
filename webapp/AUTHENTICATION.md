@@ -33,7 +33,7 @@ Password: SuperPassword123
 1. User visits the application
 2. If not authenticated, the login screen is displayed
 3. User enters email and password
-4. Frontend sends credentials to `/api/auth/signin`
+4. Frontend sends credentials to `/api/v1/auth/signin`
 5. Backend validates and returns JWT token
 6. Token is stored in localStorage
 7. User is redirected to the main application
@@ -147,7 +147,7 @@ const TOKEN_KEY = "woundtech_token";
 
 ### Authentication
 
-- `POST /api/auth/signin` - Login user
+- `POST /api/v1/auth/signin` - Login user
   - Body: `{ email, password }`
   - Returns: `{ token, user }`
 
