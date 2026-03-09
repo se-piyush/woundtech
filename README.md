@@ -31,7 +31,7 @@ npm run install:all
 docker-compose up -d
 ```
 
-3. **Run database migration**
+3. **Setup database**
 
 ```bash
 npm run prisma:setup
