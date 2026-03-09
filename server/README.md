@@ -14,7 +14,7 @@ Backend API for the WoundTech patient visit tracking application.
 ## Prerequisites
 
 - Node.js (v18 or higher)
-- PostgreSQL (v14 or higher)
+- Docker
 
 ## Setup
 
@@ -24,22 +24,13 @@ Backend API for the WoundTech patient visit tracking application.
 npm install
 ```
 
-2. **Configure environment variables:**
+2. **Run Postgres**
 
-   Create a `.env` file in the server directory:
+go to workspace directory and run
 
-   ```env
-   # Database
-   DATABASE_URL="postgresql://postgres:password@localhost:5432/patient_visits"
-
-   # JWT
-   JWT_SECRET="your-secret-key-change-in-production"
-   JWT_EXPIRY="1d"
-
-   # Server
-   PORT=3000
-   NODE_ENV=development
-   ```
+```bash
+docker-compose up -d
+```
 
 3. **Run database migrations:**
 
@@ -47,13 +38,13 @@ npm install
 npm run prisma:migrate
 ```
 
-4. **Seed the database (optional):**
+4. **Seed the database:**
 
 ```bash
 npm run prisma:seed
 ```
 
-## Development
+5. **Run server**
 
 ```bash
 npm run dev

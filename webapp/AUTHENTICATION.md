@@ -1,6 +1,6 @@
 # Authentication Guide
 
-The WoundTech application now includes authentication to protect the frontend and ensure only authorized users can access the patient visit tracking system.
+The WoundTech application includes authentication to protect the frontend and ensure only authorized internal users can access the patient visit tracking system.
 
 ## Overview
 
@@ -19,7 +19,7 @@ The backend supports three user roles:
 
 ## Default Credentials
 
-For testing and development, use these credentials:
+For testing, use these credentials:
 
 ```
 Email: super@woundtech.com
@@ -143,16 +143,6 @@ const TOKEN_KEY = "woundtech_token";
 - Verify backend API is accessible
 - Check network tab in dev tools
 
-## Production Deployment
-
-Before deploying to production:
-
-1. **Change JWT Secret**: Use a strong, random secret
-2. **Use HTTPS**: Always use secure connections
-3. **Set Secure Cookies**: Consider using httpOnly cookies instead of localStorage
-4. **Enable CORS**: Configure proper CORS settings
-5. **Rate Limiting**: Add rate limiting to prevent brute force attacks
-
 ## API Endpoints
 
 ### Authentication
@@ -160,8 +150,6 @@ Before deploying to production:
 - `POST /api/auth/signin` - Login user
   - Body: `{ email, password }`
   - Returns: `{ token, user }`
-
-(Other auth endpoints like registration may be available - check backend docs)
 
 ---
 

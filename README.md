@@ -13,28 +13,31 @@ woundtech/
 
 ## Prerequisites
 
-### Option 1: Docker (Recommended)
-
-- Docker (v20.10+)
-- Docker Compose (v2.0+)
-
-### Option 2: Local Development
-
+- Docker
 - Node.js (v18 or higher)
-- PostgreSQL (v14 or higher)
 - npm or yarn
 
-## Quick Start
+## Running Applications
 
-### Install all dependencies
+1. **Install all dependencies**
 
 ```bash
 npm run install:all
 ```
 
-### Development
+2. **Run Postgres server on local**
 
-Run both server and webapp concurrently:
+```bash
+docker-compose up -d
+```
+
+3. **Run database migration**
+
+```bash
+npm run prisma:setup
+```
+
+4. **Run both server and webapp concurrently**
 
 ```bash
 npm run dev
@@ -54,12 +57,6 @@ npm run dev:webapp
 - Frontend: `http://localhost:5173`
 - Swagger Docs: `http://localhost:3000/api-docs`
 
-### Production Build
-
-```bash
-npm run build
-```
-
 ## Server Setup
 
 See [server/README.md](server/README.md) for backend-specific instructions.
@@ -67,24 +64,6 @@ See [server/README.md](server/README.md) for backend-specific instructions.
 ## Webapp Setup
 
 See [webapp/README.md](webapp/README.md) for frontend-specific instructions.
-
-## Quick Start with Docker
-
-**Production:**
-
-```bash
-docker-compose up -d
-```
-
-**Development with hot reload:**
-
-```bash
-docker-compose -f docker-compose.dev.yml up
-```
-
-The application will be available at `http://localhost:3000`
-
-For detailed Docker instructions, see [DOCKER.md](server/DOCKER.md)
 
 ## Features
 
@@ -118,63 +97,6 @@ Password: SuperPassword123
 ```
 
 See [webapp/AUTHENTICATION.md](webapp/AUTHENTICATION.md) for detailed authentication documentation.
-
-## Local Setup (Without Docker)
-
-1. **Install dependencies:**
-
-```bash
-npm install
-```
-
-2. **Configure environment variables:**
-
-   Copy `.env.example` to `.env` and update with your PostgreSQL credentials:
-
-   ```bash
-   cp .env.example .env
-   ```
-
-   Edit `.env`:
-
-   ```env
-   DATABASE_URL="postgresql://postgres:password@localhost:5432/patient_visits?schema=public"
-   PORT=3000
-   NODE_ENV=development
-   ```
-
-3. **Run database migrations:**
-
-```bash
-npm run prisma:migrate
-```
-
-4. **Generate Prisma Client:**
-
-```bash
-npm run prisma:generate
-```
-
-## Running the Application
-
-### Development mode:
-
-```bash
-npm run dev
-```
-
-### Production mode:
-
-```bash
-npm run build
-npm start
-```
-
-### Open Prisma Studio (Database GUI):
-
-```bash
-npm run prisma:studio
-```
 
 ## API Endpoints
 
@@ -264,7 +186,6 @@ src/
 - MVC architecture
 - Automatic error handling with logging
 - Pagination, sorting, and filtering
-- Docker support (development & production)
 - Database migrations
 - Health check endpoint
 
@@ -278,57 +199,3 @@ The application uses automatic error handling inspired by Express 5's promise su
 - Custom error classes for different HTTP status codes
 
 For details, see [ERROR_HANDLING.md](docs/ERROR_HANDLING.md)
-
-## Docker Commands
-
-**Start services:**
-
-```bash
-docker-compose up -d
-```
-
-**View logs:**
-
-```bash
-docker-compose logs -f
-```
-
-**Run migrations:**
-
-```bash
-docker-compose exec app npx prisma migrate deploy
-```
-
-**Access database:**
-
-```bash
-docker-compose exec postgres psql -U postgres -d patient_visits
-```
-
-**Stop services:**
-
-```bash
-docker-compose down
-```
-
-For more Docker commands, see [DOCKER.md](DOCKER.md)
-
-## Environment Variables
-
-| Variable       | Description                          | Default     |
-| -------------- | ------------------------------------ | ----------- |
-| `DATABASE_URL` | PostgreSQL connection string         | -           |
-| `PORT`         | Application port                     | 3000        |
-| `NODE_ENV`     | Environment (development/production) | development |
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
-
-## License
-
-ISC
