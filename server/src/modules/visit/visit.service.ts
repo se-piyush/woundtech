@@ -1,20 +1,22 @@
 import { Visit } from "@prisma/client";
-import { VisitRepository } from "./visit.repository";
-import { ClinicianRepository } from "../clinician/clinician.repository";
-import { PatientRepository } from "../patient/patient.repository";
 import { NotFoundError } from "../../errors";
 import {
+  IVisitRepository,
+  IClinicianRepository,
+  IPatientRepository,
   PaginationParams,
   SortParams,
   PaginatedResponse,
   VisitFilters,
 } from "../../types/common";
 
-const visitRepository = new VisitRepository();
-const clinicianRepository = new ClinicianRepository();
-const patientRepository = new PatientRepository();
-
 export class VisitService {
+  constructor(
+    private readonly visitRepository: IVisitRepository,
+    private readonly clinicianRepository: IClinicianRepository,
+    private readonly patientRepository: IPatientRepository,
+  ) {}
+
   async create(data: {
     clinicianId: string;
     patientId: string;
@@ -24,18 +26,18 @@ export class VisitService {
     treatment?: string;
   }): Promise<Visit> {
     // Verify clinician exists
-    const clinician = await clinicianRepository.findById(data.clinicianId);
+    const clinician = await this.clinicianRepository.findById(data.clinicianId);
     if (!clinician) {
       throw new NotFoundError("Clinician not found");
     }
 
     // Verify patient exists
-    const patient = await patientRepository.findById(data.patientId);
+    const patient = await this.patientRepository.findById(data.patientId);
     if (!patient) {
       throw new NotFoundError("Patient not found");
     }
 
-    return visitRepository.create({
+    return this.visitRepository.create({
       clinician: {
         connect: { id: data.clinicianId },
       },
@@ -54,11 +56,11 @@ export class VisitService {
     sort: SortParams,
     filters: VisitFilters,
   ): Promise<PaginatedResponse<Visit>> {
-    return visitRepository.findAll(pagination, sort, filters);
+    return this.visitRepository.findAll(pagination, sort, filters);
   }
 
   async findById(id: string): Promise<Visit> {
-    const visit = await visitRepository.findById(id);
+    const visit = await this.visitRepository.findById(id);
 
     if (!visit) {
       throw new NotFoundError("Visit not found");

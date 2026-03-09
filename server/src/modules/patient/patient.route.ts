@@ -1,11 +1,17 @@
 import { Router } from "express";
 import { PatientController } from "./patient.controller";
+import { PatientService } from "./patient.service";
+import { PatientRepository } from "./patient.repository";
 import { asyncHandler } from "../../middleware/errorHandler";
 import { validate } from "../../middleware/validator";
 import { patientValidation } from "./patient.validation";
 
 const router = Router();
-const patientController = new PatientController();
+
+// Initialize dependencies
+const patientRepository = new PatientRepository();
+const patientService = new PatientService(patientRepository);
+const patientController = new PatientController(patientService);
 
 router.get(
   "/",

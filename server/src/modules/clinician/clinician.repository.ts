@@ -1,7 +1,8 @@
 import { Clinician, Prisma } from "@prisma/client";
 import prisma from "../../config/database";
+import { IClinicianRepository } from "../../types/common";
 
-export class ClinicianRepository {
+export class ClinicianRepository implements IClinicianRepository {
   async findById(id: string): Promise<Clinician | null> {
     return prisma.clinician.findUnique({
       where: { id },

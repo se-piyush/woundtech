@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
 import { VisitService } from "./visit.service";
 
-const visitService = new VisitService();
-
 export class VisitController {
+  constructor(private readonly visitService: VisitService) {}
+
   async create(req: Request, res: Response): Promise<void> {
     const { clinicianId, patientId, visitDate, notes, diagnosis, treatment } =
       req.body;
 
-    const visit = await visitService.create({
+    const visit = await this.visitService.create({
       clinicianId,
       patientId,
       visitDate: new Date(visitDate),
@@ -33,7 +33,7 @@ export class VisitController {
     const clinicianId = req.query.clinicianId as string | undefined;
     const patientId = req.query.patientId as string | undefined;
 
-    const result = await visitService.findAll(
+    const result = await this.visitService.findAll(
       { page, limit },
       { sortBy, sortOrder },
       { clinicianId, patientId },
@@ -44,7 +44,7 @@ export class VisitController {
 
   async getById(req: Request, res: Response): Promise<void> {
     const { id } = req.params;
-    const visit = await visitService.findById(id);
+    const visit = await this.visitService.findById(id);
     res.status(200).json(visit);
   }
 }

@@ -1,13 +1,14 @@
 import { Visit, Prisma } from "@prisma/client";
 import prisma from "../../config/database";
 import {
+  IVisitRepository,
   PaginationParams,
   SortParams,
   PaginatedResponse,
   VisitFilters,
 } from "../../types/common";
 
-export class VisitRepository {
+export class VisitRepository implements IVisitRepository {
   async create(data: Prisma.VisitCreateInput): Promise<Visit> {
     return prisma.visit.create({
       data,

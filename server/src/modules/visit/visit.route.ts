@@ -1,11 +1,25 @@
 import { Router } from "express";
 import { VisitController } from "./visit.controller";
+import { VisitService } from "./visit.service";
+import { VisitRepository } from "./visit.repository";
+import { ClinicianRepository } from "../clinician/clinician.repository";
+import { PatientRepository } from "../patient/patient.repository";
 import { asyncHandler } from "../../middleware/errorHandler";
 import { validate } from "../../middleware/validator";
 import { visitValidation } from "./visit.validation";
 
 const router = Router();
-const visitController = new VisitController();
+
+// Initialize dependencies
+const visitRepository = new VisitRepository();
+const clinicianRepository = new ClinicianRepository();
+const patientRepository = new PatientRepository();
+const visitService = new VisitService(
+  visitRepository,
+  clinicianRepository,
+  patientRepository,
+);
+const visitController = new VisitController(visitService);
 
 router.post(
   "/",

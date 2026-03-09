@@ -1,15 +1,14 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import { PrismaClient, UserRole } from "@prisma/client";
+import { UserRole } from "@prisma/client";
 import { UnauthorizedError } from "../../errors";
-
-const prisma = new PrismaClient();
+import { IAuthRepository } from "../../types/common";
 
 export class AuthService {
   private readonly JWT_SECRET: string;
   private readonly JWT_EXPIRES_IN = "1h";
 
-  constructor() {
+  constructor(private readonly authRepository: IAuthRepository) {
     this.JWT_SECRET =
       process.env.JWT_SECRET || "your-secret-key-change-in-production";
   }
@@ -55,9 +54,7 @@ export class AuthService {
     token: string;
     user: { id: string; email: string; role: UserRole };
   }> {
-    const user = await prisma.user.findUnique({
-      where: { email },
-    });
+    const user = await this.authRepository.findUserByEmail(email);
 
     if (!user) {
       throw new UnauthorizedError("Invalid credentials");

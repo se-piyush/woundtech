@@ -1,11 +1,17 @@
 import { Router } from "express";
 import { ClinicianController } from "./clinician.controller";
+import { ClinicianService } from "./clinician.service";
+import { ClinicianRepository } from "./clinician.repository";
 import { asyncHandler } from "../../middleware/errorHandler";
 import { validate } from "../../middleware/validator";
 import { clinicianValidation } from "./clinician.validation";
 
 const router = Router();
-const clinicianController = new ClinicianController();
+
+// Initialize dependencies
+const clinicianRepository = new ClinicianRepository();
+const clinicianService = new ClinicianService(clinicianRepository);
+const clinicianController = new ClinicianController(clinicianService);
 
 router.get(
   "/",

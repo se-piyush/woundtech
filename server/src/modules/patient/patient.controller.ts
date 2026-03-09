@@ -1,15 +1,15 @@
 import { Request, Response } from "express";
 import { PatientService } from "./patient.service";
 
-const patientService = new PatientService();
-
 export class PatientController {
+  constructor(private readonly patientService: PatientService) {}
+
   async getAll(req: Request, res: Response): Promise<void> {
     const page = parseInt(req.query.page as string) || 1;
     const limit = parseInt(req.query.limit as string) || 10;
     const search = req.query.search as string | undefined;
 
-    const result = await patientService.findAll({
+    const result = await this.patientService.findAll({
       page,
       limit,
       search,
@@ -26,7 +26,7 @@ export class PatientController {
 
   async getById(req: Request, res: Response): Promise<void> {
     const { id } = req.params;
-    const patient = await patientService.findById(id);
+    const patient = await this.patientService.findById(id);
     res.status(200).json(patient);
   }
 }

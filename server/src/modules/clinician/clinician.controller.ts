@@ -1,15 +1,15 @@
 import { Request, Response } from "express";
 import { ClinicianService } from "./clinician.service";
 
-const clinicianService = new ClinicianService();
-
 export class ClinicianController {
+  constructor(private readonly clinicianService: ClinicianService) {}
+
   async getAll(req: Request, res: Response): Promise<void> {
     const page = parseInt(req.query.page as string) || 1;
     const limit = parseInt(req.query.limit as string) || 10;
     const search = req.query.search as string | undefined;
 
-    const result = await clinicianService.findAll({
+    const result = await this.clinicianService.findAll({
       page,
       limit,
       search,
@@ -26,7 +26,7 @@ export class ClinicianController {
 
   async getById(req: Request, res: Response): Promise<void> {
     const { id } = req.params;
-    const clinician = await clinicianService.findById(id);
+    const clinician = await this.clinicianService.findById(id);
     res.status(200).json(clinician);
   }
 }
