@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
-import { PatientRepository } from "./patient.repository";
-import { NotFoundError } from "../../errors";
+import { PatientService } from "./patient.service";
 
-const patientRepository = new PatientRepository();
+const patientService = new PatientService();
 
 export class PatientController {
   async getAll(req: Request, res: Response): Promise<void> {
@@ -10,7 +9,7 @@ export class PatientController {
     const limit = parseInt(req.query.limit as string) || 10;
     const search = req.query.search as string | undefined;
 
-    const result = await patientRepository.findWithPagination({
+    const result = await patientService.findAll({
       page,
       limit,
       search,
@@ -27,12 +26,7 @@ export class PatientController {
 
   async getById(req: Request, res: Response): Promise<void> {
     const { id } = req.params;
-    const patient = await patientRepository.findById(id);
-
-    if (!patient) {
-      throw new NotFoundError("Patient not found");
-    }
-
+    const patient = await patientService.findById(id);
     res.status(200).json(patient);
   }
 }

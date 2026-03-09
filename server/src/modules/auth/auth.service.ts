@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { PrismaClient, UserRole } from "@prisma/client";
+import { UnauthorizedError } from "../../errors";
 
 const prisma = new PrismaClient();
 
@@ -43,7 +44,7 @@ export class AuthService {
         role: UserRole;
       };
     } catch (error) {
-      throw new Error("Invalid or expired token");
+      throw new UnauthorizedError("Invalid or expired token");
     }
   }
 
@@ -59,13 +60,13 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new Error("Invalid credentials");
+      throw new UnauthorizedError("Invalid credentials");
     }
 
     const isPasswordValid = await this.comparePassword(password, user.password);
 
     if (!isPasswordValid) {
-      throw new Error("Invalid credentials");
+      throw new UnauthorizedError("Invalid credentials");
     }
 
     const token = this.generateToken(user.id, user.email, user.role);
