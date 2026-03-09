@@ -1,0 +1,52 @@
+services:
+  # PostgreSQL Database for Development
+  postgres:
+    image: postgres:16-alpine
+    container_name: woundtech_postgres_dev
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+      POSTGRES_DB: woundtech
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    # networks:
+    #   - woundtech_network
+
+  # Application in Development Mode
+  # app:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.dev
+  #   container_name: woundtech_app_dev
+  #   restart: unless-stopped
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     NODE_ENV: development
+  #     PORT: 3000
+  #     DATABASE_URL: postgresql://postgres:postgres123@postgres:5432/woundtech?schema=public
+  #   volumes:
+  #     - ./src:/app/src
+  #     - ./prisma:/app/prisma
+  #     - /app/node_modules
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  #   networks:
+  #     - woundtech_network
+
+volumes:
+  postgres_dev_data:
+    driver: local
+
+# networks:
+#   woundtech_network:
+#     driver: bridge

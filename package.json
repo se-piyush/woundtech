@@ -1,0 +1,30 @@
+{
+  "name": "woundtech-monorepo",
+  "version": "1.0.0",
+  "description": "WoundTech - Patient visit tracking application (Monorepo)",
+  "private": true,
+  "workspaces": [
+    "server",
+    "webapp"
+  ],
+  "scripts": {
+    "dev:server": "npm run dev --prefix server",
+    "dev:webapp": "npm run dev --prefix webapp",
+    "dev": "npm-run-all --parallel dev:*",
+    "build:server": "npm run build --prefix server",
+    "build:webapp": "npm run build --prefix webapp",
+    "build": "npm run build:server && npm run build:webapp",
+    "install:all": "npm install && npm install --prefix server && npm install --prefix webapp"
+  },
+  "keywords": [
+    "monorepo",
+    "healthcare",
+    "patient-tracking"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "npm-run-all": "^4.1.5"
+  }
+}
