@@ -32,23 +32,3 @@ export const errorHandler = (
     }),
   });
 };
-
-/**
- * Async handler wrapper to automatically catch promise rejections
- * This mimics Express 5's built-in promise support for Express 4
- *
- * Usage: wrap async route handlers with this function
- * @example
- * router.get('/users', asyncHandler(async (req, res) => { ... }))
- */
-export const asyncHandler = (
-  fn: (
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ) => Promise<void | Response>,
-) => {
-  return (req: Request, res: Response, next: NextFunction) => {
-    Promise.resolve(fn(req, res, next)).catch(next);
-  };
-};

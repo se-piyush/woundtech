@@ -40,7 +40,7 @@ export const authenticate = (
 
     req.user = decoded;
     next();
-  } catch (error) {
+  } catch (error: unknown) {
     if (error instanceof UnauthorizedError) {
       throw error;
     }

@@ -43,7 +43,7 @@ export class VisitController {
   }
 
   async getById(req: Request, res: Response): Promise<void> {
-    const { id } = req.params;
+    const id = String(req.params.id);
     const visit = await this.visitService.findById(id);
     res.status(200).json(visit);
   }

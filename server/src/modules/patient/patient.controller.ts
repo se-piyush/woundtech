@@ -25,7 +25,7 @@ export class PatientController {
   }
 
   async getById(req: Request, res: Response): Promise<void> {
-    const { id } = req.params;
+    const id = String(req.params.id);
     const patient = await this.patientService.findById(id);
     res.status(200).json(patient);
   }

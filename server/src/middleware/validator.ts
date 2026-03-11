@@ -39,21 +39,14 @@ export const validate = (schema: ValidationSchema) => {
       );
       if (error) {
         errors.push(...error.details.map((detail) => detail.message));
-      } else {
-        req.params = value;
       }
     }
 
     // Validate query parameters
     if (schema.query) {
-      const { error, value } = schema.query.validate(
-        req.query,
-        validationOptions,
-      );
+      const { error } = schema.query.validate(req.query, validationOptions);
       if (error) {
         errors.push(...error.details.map((detail) => detail.message));
-      } else {
-        req.query = value;
       }
     }
 

@@ -2,7 +2,6 @@ import { Router } from "express";
 import { ClinicianController } from "./clinician.controller";
 import { ClinicianService } from "./clinician.service";
 import { ClinicianRepository } from "./clinician.repository";
-import { asyncHandler } from "../../middleware/errorHandler";
 import { validate } from "../../middleware/validator";
 import { clinicianValidation } from "./clinician.validation";
 
@@ -13,16 +12,12 @@ const clinicianRepository = new ClinicianRepository();
 const clinicianService = new ClinicianService(clinicianRepository);
 const clinicianController = new ClinicianController(clinicianService);
 
-router.get(
-  "/",
-  validate(clinicianValidation.getAll),
-  asyncHandler((req, res) => clinicianController.getAll(req, res)),
+router.get("/", validate(clinicianValidation.getAll), (req, res) =>
+  clinicianController.getAll(req, res),
 );
 
-router.get(
-  "/:id",
-  validate(clinicianValidation.getById),
-  asyncHandler((req, res) => clinicianController.getById(req, res)),
+router.get("/:id", validate(clinicianValidation.getById), (req, res) =>
+  clinicianController.getById(req, res),
 );
 
 export default router;

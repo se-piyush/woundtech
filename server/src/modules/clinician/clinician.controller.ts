@@ -25,7 +25,7 @@ export class ClinicianController {
   }
 
   async getById(req: Request, res: Response): Promise<void> {
-    const { id } = req.params;
+    const id = String(req.params.id);
     const clinician = await this.clinicianService.findById(id);
     res.status(200).json(clinician);
   }
