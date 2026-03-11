@@ -1,9 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 import { AuthService } from "../modules/auth/auth.service";
+import { AuthRepository } from "../modules/auth/auth.repository";
 import { UnauthorizedError, ForbiddenError } from "../errors";
 import { UserRole } from "@prisma/client";
 
-const authService = new AuthService();
+const authRepository = new AuthRepository();
+const authService = new AuthService(authRepository);
 
 // Extend Express Request type to include user
 declare global {
@@ -78,13 +80,9 @@ export const requireAuth = (
       return next(err);
     }
 
-    // Super user can access everything
     if (req.user?.role === UserRole.SUPER) {
       return next();
     }
-
-    // For other routes, you can add specific role checks
-    // For now, we'll allow authenticated users
     next();
   });
 };

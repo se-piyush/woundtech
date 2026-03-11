@@ -41,7 +41,7 @@ function App() {
               </span>
             )}
             <button
-              onClick={logout}
+              onClick={() => logout()}
               className="button button-secondary"
               style={{ padding: '8px 16px' }}
             >

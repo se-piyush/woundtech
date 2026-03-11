@@ -36,9 +36,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
     apiLogout();
     setUser(null);
+    // Redirect to homepage (login page)
+    window.location.href = '/';
   };
 
   const isAuthenticated = !!user || !!getAuthToken();

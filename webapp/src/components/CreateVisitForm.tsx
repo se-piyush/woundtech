@@ -8,6 +8,7 @@ export default function CreateVisitForm({ onSuccess }: CreateVisitFormProps) {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
 
   const [formData, setFormData] = useState<CreateVisitInput>({
     clinicianId: '',
@@ -44,6 +45,7 @@ export default function CreateVisitForm({ onSuccess }: CreateVisitFormProps) {
     try {
       setSubmitting(true);
       setError(null);
+      setSuccess(false);
       
       // Convert visitDate to ISO format
       const visitData = {
@@ -52,6 +54,14 @@ export default function CreateVisitForm({ onSuccess }: CreateVisitFormProps) {
       };
       
       await createVisit(visitData);
+      
+      // Show success message
+      setSuccess(true);
+      
+      // Auto-hide success message after 3 seconds
+      setTimeout(() => {
+        setSuccess(false);
+      }, 3000);
       
       // Reset form
       setFormData({
@@ -100,6 +110,7 @@ export default function CreateVisitForm({ onSuccess }: CreateVisitFormProps) {
 
   return (
     <form className="form" onSubmit={handleSubmit}>
+      {success && <div className="success">✓ Visit created successfully!</div>}
       {error && <div className="error">{error}</div>}
 
       <Combobox
