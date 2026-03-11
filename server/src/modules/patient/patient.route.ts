@@ -4,11 +4,12 @@ import { PatientService } from "./patient.service";
 import { PatientRepository } from "./patient.repository";
 import { validate } from "../../middleware/validator";
 import { patientValidation } from "./patient.validation";
+import prisma from "../../config/database";
 
 const router = Router();
 
 // Initialize dependencies
-const patientRepository = new PatientRepository();
+const patientRepository = new PatientRepository(prisma);
 const patientService = new PatientService(patientRepository);
 const patientController = new PatientController(patientService);
 

@@ -1,10 +1,11 @@
-import { Patient, Prisma } from "@prisma/client";
-import prisma from "../../config/database";
+import { Patient, Prisma, PrismaClient } from "@prisma/client";
 import { IPatientRepository } from "../../types/common";
 
 export class PatientRepository implements IPatientRepository {
+  constructor(private readonly prisma: PrismaClient) {}
+
   async findById(id: string): Promise<Patient | null> {
-    return prisma.patient.findUnique({
+    return this.prisma.patient.findUnique({
       where: { id },
       include: {
         visits: {
@@ -20,7 +21,7 @@ export class PatientRepository implements IPatientRepository {
   }
 
   async findAll(): Promise<Patient[]> {
-    return prisma.patient.findMany({
+    return this.prisma.patient.findMany({
       orderBy: {
         lastName: "asc",
       },
@@ -64,7 +65,7 @@ export class PatientRepository implements IPatientRepository {
     }
 
     const [data, total] = await Promise.all([
-      prisma.patient.findMany({
+      this.prisma.patient.findMany({
         where,
         skip,
         take: limit,
@@ -72,7 +73,7 @@ export class PatientRepository implements IPatientRepository {
           lastName: "asc",
         },
       }),
-      prisma.patient.count({ where }),
+      this.prisma.patient.count({ where }),
     ]);
 
     return { data, total };
@@ -80,7 +81,7 @@ export class PatientRepository implements IPatientRepository {
 
   async findByUserId(userId: string): Promise<Patient | null> {
     if (!userId) return null;
-    return prisma.patient.findUnique({
+    return this.prisma.patient.findUnique({
       where: { userId },
     });
   }

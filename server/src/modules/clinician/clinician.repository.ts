@@ -1,10 +1,11 @@
-import { Clinician, Prisma } from "@prisma/client";
-import prisma from "../../config/database";
+import { Clinician, Prisma, PrismaClient } from "@prisma/client";
 import { IClinicianRepository } from "../../types/common";
 
 export class ClinicianRepository implements IClinicianRepository {
+  constructor(private readonly prisma: PrismaClient) {}
+
   async findById(id: string): Promise<Clinician | null> {
-    return prisma.clinician.findUnique({
+    return this.prisma.clinician.findUnique({
       where: { id },
       include: {
         visits: {
@@ -20,7 +21,7 @@ export class ClinicianRepository implements IClinicianRepository {
   }
 
   async findAll(): Promise<Clinician[]> {
-    return prisma.clinician.findMany({
+    return this.prisma.clinician.findMany({
       orderBy: {
         lastName: "asc",
       },
@@ -64,7 +65,7 @@ export class ClinicianRepository implements IClinicianRepository {
     }
 
     const [data, total] = await Promise.all([
-      prisma.clinician.findMany({
+      this.prisma.clinician.findMany({
         where,
         skip,
         take: limit,
@@ -72,14 +73,14 @@ export class ClinicianRepository implements IClinicianRepository {
           lastName: "asc",
         },
       }),
-      prisma.clinician.count({ where }),
+      this.prisma.clinician.count({ where }),
     ]);
 
     return { data, total };
   }
 
   async findByUserId(userId: string): Promise<Clinician | null> {
-    return prisma.clinician.findUnique({
+    return this.prisma.clinician.findUnique({
       where: { userId },
     });
   }

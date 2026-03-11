@@ -4,11 +4,12 @@ import { ClinicianService } from "./clinician.service";
 import { ClinicianRepository } from "./clinician.repository";
 import { validate } from "../../middleware/validator";
 import { clinicianValidation } from "./clinician.validation";
+import prisma from "../../config/database";
 
 const router = Router();
 
 // Initialize dependencies
-const clinicianRepository = new ClinicianRepository();
+const clinicianRepository = new ClinicianRepository(prisma);
 const clinicianService = new ClinicianService(clinicianRepository);
 const clinicianController = new ClinicianController(clinicianService);
 

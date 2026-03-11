@@ -4,11 +4,12 @@ import { AuthService } from "./auth.service";
 import { AuthRepository } from "./auth.repository";
 import { validate } from "../../middleware/validator";
 import { authValidation } from "./auth.validation";
+import prisma from "../../config/database";
 
 const router = Router();
 
 // Initialize dependencies
-const authRepository = new AuthRepository();
+const authRepository = new AuthRepository(prisma);
 const authService = new AuthService(authRepository);
 const authController = new AuthController(authService);
 

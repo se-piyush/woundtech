@@ -12,8 +12,6 @@ export const validate = (schema: ValidationSchema) => {
   return (req: Request, res: Response, next: NextFunction) => {
     const validationOptions: Joi.ValidationOptions = {
       abortEarly: false, // Return all errors, not just the first one
-      allowUnknown: true, // Allow unknown keys that will be ignored
-      stripUnknown: true, // Remove unknown keys from the validated data
     };
 
     const errors: string[] = [];
@@ -26,8 +24,6 @@ export const validate = (schema: ValidationSchema) => {
       );
       if (error) {
         errors.push(...error.details.map((detail) => detail.message));
-      } else {
-        req.body = value;
       }
     }
 
